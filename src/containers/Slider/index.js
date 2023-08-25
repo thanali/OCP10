@@ -52,6 +52,8 @@ const Slider = () => {
                   name="radio-button"
                   // Correction de la comparaison : valeur de l'index du State au lieu du tableau byDateDesc
                   checked={index === radioIdx}
+                  // Ajout en lecture seulement
+                  readOnly
                 />
               ))}
             </div>
