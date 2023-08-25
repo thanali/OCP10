@@ -3,14 +3,20 @@
 .SlideCardList {
   position: relative;
   width: 100%;
-  max-width: 1440px;
+  // max-width: 1440px;
   height: 586px;
   .SlideCard {
     width: 100%;
+    height: 100%;
     left: 0;
     top: 0;
     position: absolute;
     transition: opacity 1s;
+    & img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
     &--hide {
       opacity: 0;
     }
