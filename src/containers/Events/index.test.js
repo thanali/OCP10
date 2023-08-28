@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react"
+import { act } from "react-dom/test-utils"
 import { api, DataProvider } from "../../contexts/DataContext"
 import Events from "./index"
 
@@ -37,29 +38,34 @@ const data = {
   ]
 }
 
+// Ajout de la méthode act() afin d'appliquer les tests après éxécution des effets et updates
 describe("When Events is created", () => {
   it("a list of event card is displayed", async () => {
-    api.loadData = jest.fn().mockReturnValue(data)
-    render(
-      <DataProvider>
-        <Events />
-      </DataProvider>
-    )
-    await screen.findByText("avril")
-  })
-  describe("and an error occured", () => {
-    it("an error message is displayed", async () => {
-      api.loadData = jest.fn().mockRejectedValue()
+    await act(async () => {
+      api.loadData = jest.fn().mockReturnValue(data)
       render(
         <DataProvider>
           <Events />
         </DataProvider>
       )
+    })
+    await screen.findAllByText("avril") // Récupération de tous les éléments
+  })
+  describe("and an error occured", () => {
+    it("an error message is displayed", async () => {
+      await act(async () => {
+        api.loadData = jest.fn().mockRejectedValue(new Error())
+        render(
+          <DataProvider>
+            <Events />
+          </DataProvider>
+        )
+      })
       expect(await screen.findByText("An error occured")).toBeInTheDocument()
     })
   })
   describe("and we select a category", () => {
-    it.only("an filtered list is displayed", async () => {
+    it("an filtered list is displayed", async () => {
       api.loadData = jest.fn().mockReturnValue(data)
       render(
         <DataProvider>
