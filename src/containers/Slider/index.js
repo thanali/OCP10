@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useData } from "../../contexts/DataContext"
 import { getMonth } from "../../helpers/Date"
 
@@ -13,7 +13,7 @@ const Slider = () => {
   )
   const nextCard = () => {
     // Vérification de récupération des données
-    if (byDateDesc) {
+    if (data && data.focus && byDateDesc) {
       setTimeout(
         // Correction de la longueur du tableau
         () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
@@ -21,13 +21,14 @@ const Slider = () => {
       )
     }
   }
-  // Retrait useEffect non nécessaire
-  nextCard()
+  useEffect(() => {
+    nextCard()
+  })
 
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        // Ajout Key pour l'élément créée avec map
+        // Ajout Key pour l'élément créé avec map
         <div key={event.title}>
           <div
             className={`SlideCard SlideCard--${

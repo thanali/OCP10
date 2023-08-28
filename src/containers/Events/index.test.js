@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { api, DataProvider } from "../../contexts/DataContext";
-import Events from "./index";
+import { fireEvent, render, screen } from "@testing-library/react"
+import { api, DataProvider } from "../../contexts/DataContext"
+import Events from "./index"
 
 const data = {
   events: [
@@ -18,8 +18,8 @@ const data = {
         "1 espace d’exposition",
         "1 scéne principale",
         "2 espaces de restaurations",
-        "1 site web dédié",
-      ],
+        "1 site web dédié"
+      ]
     },
 
     {
@@ -32,80 +32,80 @@ const data = {
         "Présentation des outils analytics aux professionnels du secteur",
       nb_guesses: 1300,
       periode: "24-25-26 Février",
-      prestations: ["1 espace d’exposition", "1 scéne principale"],
-    },
-  ],
-};
+      prestations: ["1 espace d’exposition", "1 scéne principale"]
+    }
+  ]
+}
 
 describe("When Events is created", () => {
   it("a list of event card is displayed", async () => {
-    api.loadData = jest.fn().mockReturnValue(data);
+    api.loadData = jest.fn().mockReturnValue(data)
     render(
       <DataProvider>
         <Events />
       </DataProvider>
-    );
-    await screen.findByText("avril");
-  });
+    )
+    await screen.findByText("avril")
+  })
   describe("and an error occured", () => {
     it("an error message is displayed", async () => {
-      api.loadData = jest.fn().mockRejectedValue();
+      api.loadData = jest.fn().mockRejectedValue()
       render(
         <DataProvider>
           <Events />
         </DataProvider>
-      );
-      expect(await screen.findByText("An error occured")).toBeInTheDocument();
-    });
-  });
+      )
+      expect(await screen.findByText("An error occured")).toBeInTheDocument()
+    })
+  })
   describe("and we select a category", () => {
     it.only("an filtered list is displayed", async () => {
-      api.loadData = jest.fn().mockReturnValue(data);
+      api.loadData = jest.fn().mockReturnValue(data)
       render(
         <DataProvider>
           <Events />
         </DataProvider>
-      );
-      await screen.findByText("Forum #productCON");
+      )
+      await screen.findByText("Forum #productCON")
       fireEvent(
         await screen.findByTestId("collapse-button-testid"),
         new MouseEvent("click", {
           cancelable: true,
-          bubbles: true,
+          bubbles: true
         })
-      );
+      )
       fireEvent(
         (await screen.findAllByText("soirée entreprise"))[0],
         new MouseEvent("click", {
           cancelable: true,
-          bubbles: true,
+          bubbles: true
         })
-      );
+      )
 
-      await screen.findByText("Conférence #productCON");
-      expect(screen.queryByText("Forum #productCON")).not.toBeInTheDocument();
-    });
-  });
+      await screen.findByText("Conférence #productCON")
+      expect(screen.queryByText("Forum #productCON")).not.toBeInTheDocument()
+    })
+  })
 
   describe("and we click on an event", () => {
     it("the event detail is displayed", async () => {
-      api.loadData = jest.fn().mockReturnValue(data);
+      api.loadData = jest.fn().mockReturnValue(data)
       render(
         <DataProvider>
           <Events />
         </DataProvider>
-      );
+      )
 
       fireEvent(
         await screen.findByText("Conférence #productCON"),
         new MouseEvent("click", {
           cancelable: true,
-          bubbles: true,
+          bubbles: true
         })
-      );
+      )
 
-      await screen.findByText("24-25-26 Février");
-      await screen.findByText("1 site web dédié");
-    });
-  });
-});
+      await screen.findByText("24-25-26 Février")
+      await screen.findByText("1 site web dédié")
+    })
+  })
+})
