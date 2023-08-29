@@ -13,17 +13,15 @@ const Slider = () => {
   )
   const nextCard = () => {
     // Vérification de récupération des données
-    if (data && data.focus && byDateDesc) {
-      setTimeout(
-        // Correction de la longueur du tableau
-        () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
-        5000
-      )
+    if (data && data.focus && byDateDesc.length > 0) {
+      setIndex(index < byDateDesc.length - 1 ? index + 1 : 0)
     }
   }
   useEffect(() => {
-    nextCard()
-  })
+    // Composant rendu toute 5sec et/ou au changement des dépendances, et nettoyé
+    const timer = setTimeout(nextCard, 5000)
+    return () => clearTimeout(timer)
+  }, [index, byDateDesc])
 
   return (
     <div className="SlideCardList">
@@ -52,9 +50,8 @@ const Slider = () => {
                   type="radio"
                   name="radio-button"
                   // Correction de la comparaison : valeur de l'index du State au lieu du tableau byDateDesc
-                  checked={index === radioIdx}
-                  // Ajout en lecture seulement
-                  readOnly
+                  defaultChecked={index === radioIdx}
+                  onChange={() => setIndex(radioIdx)}
                 />
               ))}
             </div>
