@@ -54,6 +54,7 @@ describe("When Events is created", () => {
   describe("and an error occured", () => {
     it("an error message is displayed", async () => {
       await act(async () => {
+        // Ajout d'une erreur lors de la récupération des données mockées
         api.loadData = jest.fn().mockRejectedValue(new Error())
         render(
           <DataProvider>

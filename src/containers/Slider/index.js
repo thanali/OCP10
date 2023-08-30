@@ -14,6 +14,7 @@ const Slider = () => {
   const nextCard = () => {
     // Vérification de récupération des données
     if (data && data.focus && byDateDesc.length > 0) {
+      // Correction de la longueur du tableau
       setIndex(index < byDateDesc.length - 1 ? index + 1 : 0)
     }
   }
