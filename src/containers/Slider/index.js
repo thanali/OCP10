@@ -7,6 +7,7 @@ import "./style.scss"
 const Slider = () => {
   const { data } = useData()
   const [index, setIndex] = useState(0)
+  const [dotChecked, setDotChecked] = useState(0)
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     // Correction de l'ordre des slides
     new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
@@ -21,6 +22,7 @@ const Slider = () => {
   useEffect(() => {
     // Composant rendu toute 5sec et/ou au changement des dépendances, et nettoyé
     const timer = setTimeout(nextCard, 5000)
+    setDotChecked(index)
     return () => clearTimeout(timer)
   }, [index, byDateDesc])
 
@@ -51,7 +53,7 @@ const Slider = () => {
                   type="radio"
                   name="radio-button"
                   // Correction de la comparaison : valeur de l'index du State au lieu du tableau byDateDesc
-                  defaultChecked={index === radioIdx}
+                  checked={dotChecked === radioIdx}
                   onChange={() => setIndex(radioIdx)}
                 />
               ))}
