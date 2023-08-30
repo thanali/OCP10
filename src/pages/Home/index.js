@@ -57,11 +57,17 @@ const Page = () => {
             </ServiceCard>
           </div>
         </section>
-        <section id="nos-realisations" className="EventsContainer">
+        <section
+          id="nos-realisations"
+          className="EventsContainer"
+          data-testid="nos-realisations">
           <h2 className="Title">Nos réalisations</h2>
           <EventList />
         </section>
-        <section id="notre-equipe" className="PeoplesContainer">
+        <section
+          id="notre-equipe"
+          className="PeoplesContainer"
+          data-testid="notre-equipe">
           <h2 className="Title">Notre équipe</h2>
           <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
           <div className="ListContainer">
@@ -115,8 +121,8 @@ const Page = () => {
           </Modal>
         </div>
       </main>
-      <footer className="row">
-        <div className="col presta">
+      <footer className="row" data-testid="footer">
+        <div className="col presta" data-testid="last-event">
           <h3>Notre derniére prestation</h3>
           {last && (
             // Mise en place du dernier événement du tableau dans la modale
