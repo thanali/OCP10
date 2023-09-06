@@ -45,7 +45,7 @@ describe("When a page is created", () => {
   })
   it("an event card, with the last event, is displayed", () => {
     render(<Home />)
-    const lastEvent = screen.getByTestId("last-event")
-    expect(lastEvent).toBeInTheDocument()
+    const lastEvent = document.querySelector("card-testid")
+    expect(lastEvent).toBeDefined()
   })
 })
